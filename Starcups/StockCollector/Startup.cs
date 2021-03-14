@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,8 +26,15 @@ namespace StockCollector
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+
+            // Redis için aşağıdaki satır eklendi
+            // Bağlantı bilgisi yaml üstünden gelecek
+            services.AddStackExchangeRedisCache(o =>
+            {
+                o.Configuration = Configuration.GetConnectionString("redis");
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StockCollector", Version = "v1" });
