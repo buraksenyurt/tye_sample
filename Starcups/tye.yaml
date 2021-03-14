@@ -5,6 +5,7 @@
 #    https://aka.ms/AA7q20u
 #
 name: starcups
+registry: localhost:5000
 services:
 - name: headoffice
   project: HeadOffice/HeadOffice.csproj
