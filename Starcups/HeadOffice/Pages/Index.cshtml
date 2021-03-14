@@ -5,6 +5,30 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Melaba!!! Kahvenin hası burada.</h1>
+    <p>Star Cups Mağzaları...</a>.</p>
 </div>
+
+Son Siparişler
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tarih</th>
+            <th>Dükkan</th>
+            <th>İstenen</th>
+            <th>Miktar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ord in @Model.Orders)
+        {
+            <tr>
+                <td>@ord.Time.ToLongTimeString()</td>
+                <td>@ord.ShopName</td>
+                <td>@ord.ItemName</td>
+                <td>@ord.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
