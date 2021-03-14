@@ -29,42 +29,42 @@ namespace StockCollector.Controllers
             _logger = logger;
         }
 
-        //[HttpGet]
-        //public IEnumerable<OrderData> Get()
-        //{
-        //    var rng = new Random();
-        //    return Enumerable.Range(1, 10).Select(index => new OrderData
-        //    {
-        //        ItemName = Items[rng.Next(Items.Length)],
-        //        Quantity = rng.Next(1, 10),
-        //        ShopName = ShopNames[rng.Next(ShopNames.Length)],
-        //        Time=DateTime.Now
-        //    }).ToArray();
-        //}
-
         [HttpGet]
-        public async Task<string> Get([FromServices] IDistributedCache cache)
+        public IEnumerable<OrderData> Get()
         {
-            var keyOrder = await cache.GetStringAsync("keyOrder");
-            if (keyOrder == null)
+            var rng = new Random();
+            return Enumerable.Range(1, 10).Select(index => new OrderData
             {
-                var rng = new Random();
-                var orders = Enumerable.Range(1, 10).Select(index => new OrderData
-                {
-                    ItemName = Items[rng.Next(Items.Length)],
-                    Quantity = rng.Next(1, 10),
-                    ShopName = ShopNames[rng.Next(ShopNames.Length)],
-                    Time = DateTime.Now
-                }).ToArray();
-
-                keyOrder = JsonSerializer.Serialize(orders);
-
-                await cache.SetStringAsync("keyOrder", keyOrder, new DistributedCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
-                });
-            }
-            return keyOrder;
+                ItemName = Items[rng.Next(Items.Length)],
+                Quantity = rng.Next(1, 10),
+                ShopName = ShopNames[rng.Next(ShopNames.Length)],
+                Time = DateTime.Now
+            }).ToArray();
         }
+
+        //[HttpGet]
+        //public async Task<string> Get([FromServices] IDistributedCache cache)
+        //{
+        //    var keyOrder = await cache.GetStringAsync("keyOrder");
+        //    if (keyOrder == null)
+        //    {
+        //        var rng = new Random();
+        //        var orders = Enumerable.Range(1, 10).Select(index => new OrderData
+        //        {
+        //            ItemName = Items[rng.Next(Items.Length)],
+        //            Quantity = rng.Next(1, 10),
+        //            ShopName = ShopNames[rng.Next(ShopNames.Length)],
+        //            Time = DateTime.Now
+        //        }).ToArray();
+
+        //        keyOrder = JsonSerializer.Serialize(orders);
+
+        //        await cache.SetStringAsync("keyOrder", keyOrder, new DistributedCacheEntryOptions
+        //        {
+        //            AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+        //        });
+        //    }
+        //    return keyOrder;
+        //}
     }
 }
