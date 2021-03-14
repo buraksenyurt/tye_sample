@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +24,15 @@ namespace HeadOffice
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            /*
+             Aşağıdaki kısım önemli. OrderClient ile StockCollector tarafına erişirken kullanacağımız servis adresi GetServiceUri üstünden gelecek.
+            Kubernetes'i attıysak o çevre birimindeki adresi burada bağlanacak.
+             */
+            services.AddHttpClient<OrderClient>(opt =>
+            {
+                opt.BaseAddress = Configuration.GetServiceUri("StockCollector");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
