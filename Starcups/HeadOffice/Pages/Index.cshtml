@@ -24,7 +24,7 @@ Son Siparişler
         @foreach (var ord in @Model.Orders)
         {
             <tr>
-                <td>@ord.Time.ToLongTimeString()</td>
+                <td>@ord.Time.Ticks</td>
                 <td>@ord.ShopName</td>
                 <td>@ord.ItemName</td>
                 <td>@ord.Quantity</td>

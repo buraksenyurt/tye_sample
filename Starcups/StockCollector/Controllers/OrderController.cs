@@ -48,6 +48,7 @@ namespace StockCollector.Controllers
             var keyOrder = await cache.GetStringAsync("keyOrder");
             if (keyOrder == null)
             {
+                _logger.LogInformation("Redis Key boştu");
                 var rng = new Random();
                 var orders = Enumerable.Range(1, 10).Select(index => new OrderData
                 {
@@ -58,6 +59,7 @@ namespace StockCollector.Controllers
                 }).ToArray();
 
                 keyOrder = JsonSerializer.Serialize(orders);
+                _logger.LogInformation($"Veri serileştirildi {keyOrder}");
 
                 await cache.SetStringAsync("keyOrder", keyOrder, new DistributedCacheEntryOptions
                 {
